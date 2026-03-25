@@ -1,316 +1,558 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luke Cuzzetto | Game Developer Portfolio</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
-
-        body {
-            font-family: 'Roboto Mono', monospace;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(-45deg, #101010, #1c1c1c, #242e38, #101010);
-            background-size: 300% 300%;
-            animation: subtleGradient 20s ease infinite;
-            color: #e0e0e0;
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-
-        @keyframes subtleGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        header {
-            background: #1a1a1a;
-            padding: 50px;
-            text-align: center;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 3em;
-            color: #3498db;
-            text-shadow: 0px 0px 15px #3498db;
-            opacity: 0;
-            animation: fadeIn 2s ease-in forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        header nav {
-            margin-top: 20px;
-        }
-
-        header nav a {
-            color: #ffffff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 10px 20px;
-            border: 2px solid transparent;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-
-        header nav a:hover {
-            border-color: #3498db;
-            color: #3498db;
-        }
-
-        #about h2, #projects h2, #contact h2 {
-            text-align: left;
-            padding-left: 100px;
-            border-left: 5px solid #3498db;
-            padding-bottom: 10px;
-            color: #3498db;
-            text-shadow: 0px 0px 10px #3498db;
-            position: relative;
-        }
-
-        #about h2::after, #projects h2::after, #contact h2::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: #3498db;
-            bottom: 0;
-            left: 0;
-            transition: width 0.5s;
-        }
-
-        #about h2:hover::after, #projects h2:hover::after, #contact h2:hover::after {
-            width: 100%;
-        }
-
-        #about p {
-            text-align: left;
-            padding: 20px 100px;
-            line-height: 1.8;
-            transition: transform 0.3s;
-        }
-
-        #about:hover p {
-            transform: translateX(10px);
-        }
-
-        #projects p {
-            text-align: left;
-            padding: 20px 10px;
-            line-height: 1.8;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 50px;
-            background: linear-gradient(to bottom, #1a1a1a, #101010);
-            box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.8);
-            color: #3498db;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20">Game Developer</text></svg>');
-            background-repeat: repeat;
-            z-index: -1;
-            animation: parallax 10s linear infinite;
-        }
-
-        @keyframes parallax {
-            from { transform: translateY(0); }
-            to { transform: translateY(-50%); }
-        }
-
-        .section {
-            padding: 50px 20px;
-        }
-
-        .project iframe {
-            width: 100%;
-            border-radius: 10px;
-            border: none;
-            aspect-ratio: 16 / 9;
-        }
-
-        .projects {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .project {
-            background: #202020;
-            padding: 20px;
-            border-radius: 10px;
-            width: 400px;
-            text-align: center;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .project:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 8px 20px rgba(52, 152, 219, 0.7);
-        }
-
-        .project video {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        .contact {
-            text-align: center;
-        }
-
-        .contact form input, .contact form textarea {
-            width: 90%;
-            max-width: 500px;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #333;
-            background-color: #1c1c1c;
-            color: #ffffff;
-            font-size: 1em;
-        }
-
-        .contact form input:focus, .contact form textarea:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0px 0px 10px #3498db;
-        }
-
-        .contact form button {
-            background-color: #3498db;
-            color: #ffffff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-        }
-
-        .contact form button:hover {
-            background-color: #2874a6;
-            transform: scale(1.05);
-            box-shadow: 0px 0px 15px #3498db;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #1a1a1a;
-            border-top: 2px solid #3498db;
-            color: #3498db;
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9em;
-        }
-
-        .contact a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        .contact a:visited {
-            color: #3498db;
-        }
-
-        .contact a:hover {
-            text-decoration: underline;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>luke@cuzzetto:~$</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  :root {
+    --bg:       #0E0E0E;
+    --bg2:      #131313;
+    --bg3:      #181818;
+    --green:    #6FCF7C;
+    --green-dim:#3A6B42;
+    --amber:    #C49A5A;
+    --cyan:     #6AABB8;
+    --white:    #DADADA;
+    --muted:    #505050;
+    --border:   #242424;
+    --font:     'JetBrains Mono', 'Courier New', monospace;
+  }
+ 
+  html { scroll-behavior: smooth; }
+ 
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+ 
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+ 
+  /* TOPBAR */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    height: 38px;
+    padding: 0 1.5rem;
+    font-size: 12px;
+  }
+ 
+  .topbar-title { color: var(--green); margin-right: 2rem; white-space: nowrap; }
+  .topbar-title span { color: var(--muted); }
+ 
+  .topbar-nav { display: flex; margin-left: auto; }
+ 
+  .topbar-nav a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.2rem;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid var(--border);
+    transition: color 0.15s, background 0.15s;
+    font-size: 12px;
+  }
+ 
+  .topbar-nav a:hover { color: var(--green); background: var(--bg2); }
+ 
+  .topbar-clock {
+    color: var(--muted);
+    font-size: 11px;
+    padding-left: 1.2rem;
+    border-left: 1px solid var(--border);
+    height: 38px;
+    display: flex;
+    align-items: center;
+    min-width: 72px;
+  }
+ 
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding-top: 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+ 
+  .hero-inner {
+    padding: 4rem 3rem 3rem;
+    max-width: 1100px;
+  }
+ 
+  .hero-name {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.5rem;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+ 
+  .hn-first {
+    font-size: clamp(3rem, 7.5vw, 6.5rem);
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: clamp(1rem, 2.2vw, 1.6rem);
+    margin-bottom: 0.3rem;
+  }
+ 
+  .hn-last {
+    font-size: clamp(3.5rem, 8.5vw, 7.5rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.03em;
+  }
+ 
+  .hero-prompt { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 2.5rem; }
+ 
+  .pl { display: flex; align-items: baseline; gap: 0.5rem; font-size: 13px; }
+  .pp { color: var(--green); white-space: nowrap; }
+  .pc { color: var(--cyan); }
+  .pa { color: var(--amber); }
+  .po { color: var(--white); padding-left: 1.5rem; }
+ 
+  .blink { animation: blink 1.1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+ 
+  .hero-status {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 0.9rem 1.4rem;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    width: fit-content;
+    font-size: 12px;
+  }
+ 
+  .sk { color: var(--muted); }
+  .sv { color: var(--amber); }
+ 
+  /* BOX */
+  .box { border: 1px solid var(--border); background: var(--bg2); }
+ 
+  .box-hdr {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    padding: 0.4rem 1rem;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+ 
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dr { background: #FF5F56; } .dy { background: #FFBD2E; } .dg { background: #27C93F; }
+  .box-hdr-t { margin-left: auto; }
+ 
+  /* SECTIONS */
+  .wrap { max-width: 1100px; margin: 0 auto; width: 100%; padding: 0 3rem; }
+ 
+  .section {
+    padding: 4rem 0;
+    border-top: 1px solid var(--border);
+  }
+ 
+  .sec-hdr {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    font-size: 12px;
+  }
+ 
+  .sc { color: var(--green); }
+  .sa { color: var(--cyan); }
+  .sl { flex: 1; border-top: 1px solid var(--border); }
+  .sn { color: var(--muted); }
+ 
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+ 
+  .about-text { padding: 1.5rem; }
+  .about-text p { color: var(--white); margin-bottom: 1rem; line-height: 1.8; font-size: 13px; }
+  .about-text p:last-child { margin-bottom: 0; }
+ 
+  .skill-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 1rem;
+    padding: 0.6rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    align-items: center;
+  }
+  .skill-row:last-child { border-bottom: none; }
+  .sk2 { color: var(--muted); }
+  .sv2 { color: var(--cyan); }
+ 
+  /* PROJECTS */
+  .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+ 
+  .proj-card {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .proj-card:hover { border-color: var(--green-dim); background: var(--bg3); }
+ 
+  .proj-hdr {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+  }
+ 
+  .pid { color: var(--muted); }
+ 
+  .pstatus {
+    font-size: 10px;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid;
+    letter-spacing: 0.08em;
+  }
+ 
+  .wip  { color: var(--amber); border-color: var(--amber); }
+  .done { color: var(--green); border-color: var(--green-dim); }
+ 
+  .proj-body { padding: 1.5rem; }
+ 
+  .proj-name {
+    color: var(--green);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+ 
+  .proj-eng { color: var(--amber); font-size: 11px; margin-bottom: 1rem; }
+ 
+  .proj-desc { color: var(--muted); font-size: 12px; line-height: 1.75; }
+ 
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.2rem; }
+ 
+  .ptag {
+    font-size: 10px;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+ 
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+ 
+  .contact-ascii {
+    white-space: pre;
+    color: var(--green-dim);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+ 
+  .clink { padding: 1.5rem; }
+ 
+  .crow {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    align-items: center;
+  }
+  .crow:last-child { border-bottom: none; }
+  .ck { color: var(--muted); font-size: 12px; }
+  .cv { color: var(--cyan); text-decoration: none; transition: color 0.15s; }
+  .cv:hover { color: var(--green); text-decoration: underline; }
+ 
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--bg);
+  }
+ 
+  footer .fg { color: var(--green-dim); }
+ 
+  @keyframes glitch {
+    0%,60%,100% { text-shadow: none; }
+    20% { text-shadow: -2px 0 rgba(180,100,200,0.6), 2px 0 rgba(80,160,180,0.6); }
+    40% { text-shadow: 2px 0 rgba(180,100,200,0.6), -2px 0 rgba(80,160,180,0.6); }
+  }
+ 
+  .hn-last:hover { animation: glitch 0.35s steps(1) 1; cursor: default; }
+ 
+  @media (max-width: 768px) {
+    .about-grid, .proj-grid, .contact-grid { grid-template-columns: 1fr; }
+    .topbar-nav a:not(:last-child) { display: none; }
+    .wrap { padding: 0 1.5rem; }
+    .hero-inner { padding: 4rem 1.5rem 2rem; }
+    footer { padding: 1rem 1.5rem; flex-direction: column; gap: 0.4rem; text-align: center; }
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>Luke Cuzzetto</h1>
-        <nav>
-            <a href="#about">About Me</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
-
-    <section id="about" class="section">
-        <h2>About Me</h2>
-        <p>Hey, my name is Luke Cuzzetto, a recent graduate from Thompson Rivers University in Kamloops, British Columbia. I graduated with a Bachelor of Computer Science in December 2024 and am pursuing a career in Game Development. I am Gamer to the core, passionate about creating beautiful, immersive games and gaming experiences.</p>
-
-        <p><strong>Programming Languages:</strong> C#, C++, GDScript, Python, Java, JavaScript, PHP, MySQL, HTML, CSS, AJAX</p>
-
-        <p><strong>Game Engines and Tools:</strong> Unity, Unreal Engine, Godot, Blender, Git/GitHub.</p>
-
-        <p>From the time I was 10 years old, I was playing games on my family's computer in the living room, immersing myself in the stories and worlds built by past game developers. This early exposure to games created a safe haven for me while growing up. Gaming is where all us Nerds go to get away and enjoy our time. 
-        <p>As I grew older, I began to wonder how these games were made. I started to learn about programming and game development after high school, and I was hooked. I knew that I wanted to be a game developer and create my own worlds and stories so that other people like me can sink hours and hours into a game with no remorse, just like I have many, many times.</p>
-        </p>
-    </section>
-
-    <section id="projects" class="section">
-        <h2>My Projects</h2>
-        <div class="projects">
-            <!-- Example Project -->
-            <div class="project">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/X48jQEXL8wk?si=OVRkcmGSg3Jo4-jm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Breach and Clear</h3>
-                <p>This is my on-going 3D Tacticle FPS shooter that I have been working on since graduating university in December, 2024. This project was mainly motivated by games like Escape from Tarkov and Insurgency: Sandstorm.</p>
-                <p>I wanted to learn how to implement a game development tool (the KINEMATION FPS Animation tool), as game development companies use tools that are built and implemented like this all the time, and I have never done this before.</p>
-                <p>In the preview it shows the working procedural animations working as intended as well as the basic idea of the game. A breach and clear game, where a player would go through rooms to clear out the enemies while saving innocent civilians. This is my current work in progress, but the animations look too good to not show.</p>
-            </div>
-            
-        
-            <div class="project">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/kvLHT628j7s?si=p5QJDXPeW3fcYCzn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Colossal Brew</h3>
-                <p>This project was started during an IEEE Game Development Seminar in the summer of 2024, in hopes of being submitted to the Pirate Games Gamejam.</p>
-                <p>This was a 2D project done in Godot. I was in a team of 4, with 2 other students and a Professor from my University acting as our Lore creator. This 2D platformer took place on moving "colossi" that the player would have to climb. These acted as the levels for the player. Inside these levels the player would find enemies and items to collect and bring back to their Home Base.</p>
-                <p>I worked on implementing core mechanics, such as combat and movement to the game, as well as helped create the initial Game Loops and Game Pillars for the game.</p>
-            </div>
-            <div class="project">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/_yYrpn3EyiA?si=irCaVzv4za87eU0T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Procedural Dungeon Creator</h3>
-                <p>This was a project done for my Procedural Generation class during my third year at school. This 2D Dungeon generator used multiple algorithms to create a dungeon with connecting corridors in real time. I also scripted a Enemy Spawner Agent which controlled the amount and quality of enemies spawning, which was just another element of the Procedural Content.</p>
-                <p>This was done in Unity, and taught me how to implement algorithms to create unique level design that would be excellent in any kind of Roguelike game, which was the main idea.</p>
-                <p>In the preview video, it shows the dungeon generator running, with every click of the button the level would reset and spawner would reset and a new dungeon would be created.</p>
-            </div>
-            <div class="project">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/DS5T5q0Oy4o?si=PAYFaQ8_-5vZZMyK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <h3>Aim Trainer</h3>
-                <p>This is the first Game Development project I did. Being heavily addicted to Counter Strike for many years, I thought "Why not make something I can use to make me better?", so I created this simple Aim Trainer for me to use. </p>
-                <p>This simple game had a "start" button (the orange stick) that the player would interact with that would start a timed trial, which would then go for a set amount of time and count the number of targets hit during that time. Once finished, it would reset and the player would go again.</p>
-            <p>This introduced me to the basic controls and programming practices inside Unity's engine, such as Aiming, 3D Movement, Particle Systems, Raycasts, Instantiating objects and Audio Sources. </p>
-            </div>
+ 
+<nav class="topbar">
+  <div class="topbar-title"><span>root@</span>luke-portfolio<span>:~$</span></div>
+  <div class="topbar-nav">
+    <a href="#about">./about</a>
+    <a href="#projects">./projects</a>
+    <a href="#contact">./contact</a>
+  </div>
+  <div class="topbar-clock" id="clock"></div>
+</nav>
+ 
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+ 
+    <div class="hero-name">
+      <span class="hn-first">Luke</span><span class="hn-last">Cuzzetto</span>
+    </div>
+ 
+    <div class="hero-prompt">
+      <div class="pl"><span class="pp">luke@portfolio:~$</span><span class="pc"> whoami</span></div>
+      <div class="pl"><span class="po" id="out1"></span></div>
+ 
+      <div class="pl" style="margin-top:.75rem"><span class="pp">luke@portfolio:~$</span><span class="pc"> cat </span><span class="pa">about.txt</span></div>
+      <div class="pl"><span class="po" id="out2"></span></div>
+      <div class="pl"><span class="po" id="out3"></span></div>
+ 
+      <div class="pl" style="margin-top:.75rem"><span class="pp">luke@portfolio:~$</span><span class="blink"> █</span></div>
+    </div>
+ 
+    <div class="hero-status">
+      <div><span class="sk">location:</span><span class="sv"> Kamloops, BC</span></div>
+      <div><span class="sk">degree:</span><span class="sv"> B.Sc Computer Science</span></div>
+      <div><span class="sk">school:</span><span class="sv"> Thompson Rivers University</span></div>
+      <div><span class="sk">graduated:</span><span class="sv"> Dec 2024</span></div>
+      <div><span class="sk">status:</span><span class="sv" style="color:var(--green)"> open_to_work</span></div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- ABOUT -->
+<div class="wrap" id="about">
+<section class="section">
+  <div class="sec-hdr">
+    <span class="sc">$</span><span class="sa"> cat README.md</span>
+    <div class="sl"></div>
+    <span class="sn">// about_me</span>
+  </div>
+ 
+  <div class="about-grid">
+    <div class="box">
+      <div class="box-hdr">
+        <span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span>
+        <span class="box-hdr-t">backstory.txt</span>
+      </div>
+      <div class="about-text">
+        <p>From the time I was 10 years old, I was playing games on my family's computer — immersing myself in the stories and worlds built by past developers. Gaming became a safe haven.</p>
+        <p>As I grew older, I began to wonder how these games were actually made. I started learning programming and game development after high school, and I was hooked. I knew I wanted to create worlds that other people like me could sink hours into without remorse.</p>
+        <p>I graduated from Thompson Rivers University in December 2024 with a Bachelor of Computer Science, and am actively pursuing a career in Game Development.</p>
+      </div>
+    </div>
+ 
+    <div class="box">
+      <div class="box-hdr">
+        <span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span>
+        <span class="box-hdr-t">skills.json</span>
+      </div>
+      <div class="skill-row"><span class="sk2">languages</span><span class="sv2">C#, C++, GDScript, Python</span></div>
+      <div class="skill-row"><span class="sk2"></span><span class="sv2">Java, JavaScript, PHP, MySQL</span></div>
+      <div class="skill-row"><span class="sk2"></span><span class="sv2">HTML, CSS, AJAX</span></div>
+      <div class="skill-row"><span class="sk2">engines</span><span class="sv2">Unity, Unreal Engine, Godot</span></div>
+      <div class="skill-row"><span class="sk2">tools</span><span class="sv2">Blender, Git / GitHub</span></div>
+      <div class="skill-row"><span class="sk2">specialty</span><span class="sv2" style="color:var(--green)">Game Development</span></div>
+    </div>
+  </div>
+</section>
+</div>
+ 
+<!-- PROJECTS -->
+<div class="wrap" id="projects">
+<section class="section">
+  <div class="sec-hdr">
+    <span class="sc">$</span><span class="sa"> ls -la ./projects/</span>
+    <div class="sl"></div>
+    <span class="sn">// 4 entries found</span>
+  </div>
+ 
+  <div class="proj-grid">
+ 
+    <div class="proj-card">
+      <div class="proj-hdr">
+        <span class="pid">proj_001</span>
+        <span class="pstatus wip">WIP</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">Breach and Clear</div>
+        <div class="proj-eng">// Unreal Engine 5 · 3D Tactical FPS</div>
+        <div class="proj-desc">Ongoing tactical FPS inspired by Escape from Tarkov and Insurgency: Sandstorm. Built to learn KINEMATION — a professional FPS animation tool used industry-wide. Features procedural animations, breach-and-clear room mechanics, and civilian AI. Started post-graduation, Dec 2024.</div>
+        <div class="proj-tags">
+          <span class="ptag">UE5</span><span class="ptag">C++</span><span class="ptag">KINEMATION</span><span class="ptag">Procedural Anim</span><span class="ptag">FPS</span>
         </div>
-    </section>
-
-    <section id="contact" class="section">
-        <h2>Contact Me</h2>
-        <div class="contact">
-            <p>Email: <a href="mailto:your-email@example.com">lacuzzetto@gmail.com</a></p>
-            <p>GitHub: <a href="https://github.com/LukeCuzzetto" >lukecuzzetto.github</a></p>
-            <p>LinkedIn: <a href="https://www.linkedin.com/in/luke-cuzzetto-07667b252/" target="_blank">linkedin.com/LukeCuzzetto</a></p>
+      </div>
+    </div>
+ 
+    <div class="proj-card">
+      <div class="proj-hdr">
+        <span class="pid">proj_002</span>
+        <span class="pstatus done">SHIPPED</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">Colossal Brew</div>
+        <div class="proj-eng">// Godot · 2D Platformer · Game Jam</div>
+        <div class="proj-desc">Built during an IEEE Game Dev Seminar, Summer 2024. Team of 4 (2 students + professor as Lore creator). A 2D platformer set on living colossi — the creatures act as levels. Enemies, collectibles, Home Base system. Led core combat, movement mechanics, and initial game loop design.</div>
+        <div class="proj-tags">
+          <span class="ptag">Godot</span><span class="ptag">GDScript</span><span class="ptag">2D Platformer</span><span class="ptag">Game Jam</span><span class="ptag">Team</span>
         </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Luke Cuzzetto. All Rights Reserved.</p>
-    </footer>
-</body>
-</html>
+      </div>
+    </div>
+ 
+    <div class="proj-card">
+      <div class="proj-hdr">
+        <span class="pid">proj_003</span>
+        <span class="pstatus done">SHIPPED</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">Procedural Dungeon Creator</div>
+        <div class="proj-eng">// Unity · Procedural Generation</div>
+        <div class="proj-desc">Academic project from third-year Proc Gen class. A 2D dungeon generator using multiple algorithms to produce dungeons with connecting corridors in real time. Includes a scripted Enemy Spawner Agent controlling enemy count and difficulty. Every button press yields an entirely new dungeon layout.</div>
+        <div class="proj-tags">
+          <span class="ptag">Unity</span><span class="ptag">C#</span><span class="ptag">Proc Gen</span><span class="ptag">Algorithms</span><span class="ptag">Roguelike</span>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="proj-card">
+      <div class="proj-hdr">
+        <span class="pid">proj_004</span>
+        <span class="pstatus done">SHIPPED</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">Aim Trainer</div>
+        <div class="proj-eng">// Unity · First Project</div>
+        <div class="proj-desc">First ever game dev project — built it because I was deep into Counter-Strike and wanted something to sharpen my aim. Timed trials, interactive start trigger, target hit counter, auto-reset. Introduced core Unity concepts: 3D movement, raycasts, particle systems, object instantiation, audio sources.</div>
+        <div class="proj-tags">
+          <span class="ptag">Unity</span><span class="ptag">C#</span><span class="ptag">First Project</span><span class="ptag">Counter-Strike</span><span class="ptag">Raycasts</span>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+</div>
+ 
+<!-- CONTACT -->
+<div class="wrap" id="contact">
+<section class="section">
+  <div class="sec-hdr">
+    <span class="sc">$</span><span class="sa"> cat contact.cfg</span>
+    <div class="sl"></div>
+    <span class="sn">// reach_out</span>
+  </div>
+ 
+  <div class="contact-grid">
+    <pre class="contact-ascii">
+┌─────────────────────────────────┐
+│                                 │
+│   &gt; AVAILABLE FOR HIRE          │
+│                                 │
+│   Looking for roles in:         │
+│   - Game Development            │
+│   - Gameplay Programming        │
+│   - Tools / Engine Dev          │
+│                                 │
+│   Location : Kamloops, BC       │
+│   Open to  : Remote / Relocate  │
+│                                 │
+│   [ SEND MESSAGE ]──────────── &gt;│
+│                                 │
+└─────────────────────────────────┘</pre>
+ 
+    <div class="box">
+      <div class="box-hdr">
+        <span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span>
+        <span class="box-hdr-t">links.cfg</span>
+      </div>
+      <div class="clink">
+        <div class="crow">
+          <span class="ck">email</span>
+          <a class="cv" href="/cdn-cgi/l/email-protection#4c202d2f393636293838230c2b212d2520622f2321"><span class="__cf_email__" data-cfemail="cca0adafb9b6b6a9b8b8a38caba1ada5a0e2afa3a1">[email&#160;protected]</span></a>
+        </div>
+        <div class="crow">
+          <span class="ck">github</span>
+          <a class="cv" href="https://github.com/LukeCuzzetto" target="_blank">github.com/LukeCuzzetto</a>
+        </div>
+        <div class="crow">
+          <span class="ck">linkedin</span>
+          <a class="cv" href="https://www.linkedin.com/in/luke-cuzzetto-07667b252/" target="_blank">linkedin.com/in/luke-cuzzetto</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+ 
+<footer>
+  <div><span class="fg">luke@cuzzetto</span>:~$ &nbsp;© 2025 — All Rights Reserved</div>
+  <div>build: <span class="fg">v1.0.0</span> &nbsp;|&nbsp; stack: <span class="fg">html/css/js</span></div>
+</footer>
+ 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Live clock
+  function tick() {
+    const now = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('clock').textContent =
+      `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  }
+  tick(); setInterval(tick, 1000);
+ 
+  // Typewriter
+  const lines = [
+    { id:'out1', text:'Game Developer & Computer Science Graduate', delay:500 },
+    { id:'out2', text:'Gamer to the core. Passionate about building immersive games and experiences.', delay:1200 },
+    { id:'out3', text:'From sinking hours into other people\'s worlds — to building my own.', delay:2600 },
+  ];
+ 
+  lines.forEach(({id, text, delay}) => {
+    const el = document
