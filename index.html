@@ -1,558 +1,1203 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>luke@cuzzetto:~$</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Luke — Freelance Web Designer & Developer based in Kamloops, BC."/>
+<title>LUKE.DEV_v3.0</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-secondary-container":     "#85c3c3",
+          "error-container":            "#93000a",
+          "tertiary-container":         "#fce442",
+          "on-primary-fixed":           "#002020",
+          "background":                 "#131313",
+          "error":                      "#ffb4ab",
+          "surface-tint":               "#00dddd",
+          "on-secondary":               "#003737",
+          "on-surface":                 "#e5e2e1",
+          "primary-fixed-dim":          "#00dddd",
+          "inverse-on-surface":         "#313030",
+          "primary":                    "#ffffff",
+          "on-background":              "#e5e2e1",
+          "surface-dim":                "#131313",
+          "surface-container-high":     "#2a2a2a",
+          "surface-container-low":      "#1c1b1b",
+          "on-surface-variant":         "#b9cac9",
+          "outline":                    "#839493",
+          "inverse-primary":            "#006a6a",
+          "on-primary-fixed-variant":   "#004f4f",
+          "tertiary":                   "#ffffff",
+          "primary-fixed":              "#00fbfb",
+          "surface-container-highest":  "#353534",
+          "on-tertiary-fixed":          "#201c00",
+          "primary-container":          "#00fbfb",
+          "secondary-container":        "#035252",
+          "secondary":                  "#93d2d1",
+          "inverse-surface":            "#e5e2e1",
+          "surface-bright":             "#3a3939",
+          "on-primary-container":       "#007070",
+          "surface":                    "#131313",
+          "on-error":                   "#690005",
+          "on-tertiary-container":      "#716500",
+          "surface-variant":            "#353534",
+          "on-secondary-fixed":         "#002020",
+          "on-tertiary":                "#383100",
+          "surface-container-lowest":   "#0e0e0e",
+          "tertiary-fixed":             "#fce442",
+          "surface-container":          "#201f1f",
+          "secondary-fixed-dim":        "#93d2d1",
+          "on-error-container":         "#ffdad6",
+          "on-primary":                 "#003737",
+          "outline-variant":            "#3a4a49",
+          "tertiary-fixed-dim":         "#dec723",
+          "on-tertiary-fixed-variant":  "#504700",
+          "secondary-fixed":            "#aeeeed",
+          "on-secondary-fixed-variant": "#004f4f"
+        },
+        fontFamily: {
+          "headline": ["Space Grotesk", "sans-serif"],
+          "body":     ["Space Grotesk", "sans-serif"],
+          "label":    ["Space Grotesk", "sans-serif"]
+        },
+        borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+      },
+    },
+  }
+</script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  background-color: #0e0e0e;
+  color: #e5e2e1;
+  overflow-x: hidden;
+  margin: 0;
+}
  
-  :root {
-    --bg:       #0E0E0E;
-    --bg2:      #131313;
-    --bg3:      #181818;
-    --green:    #6FCF7C;
-    --green-dim:#3A6B42;
-    --amber:    #C49A5A;
-    --cyan:     #6AABB8;
-    --white:    #DADADA;
-    --muted:    #505050;
-    --border:   #242424;
-    --font:     'JetBrains Mono', 'Courier New', monospace;
-  }
+/* ── CRT Scanlines ────────────────────────────────────────── */
+.scanline-overlay {
+  position: fixed; inset: 0;
+  background:
+    linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.14) 50%),
+    linear-gradient(90deg, rgba(255,0,0,0.025), rgba(0,255,0,0.01), rgba(0,0,255,0.025));
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  z-index: 200;
+}
+@keyframes scan { from { transform: translateY(-100%); } to { transform: translateY(1000%); } }
+.animate-scan { animation: scan 8s linear infinite; }
  
-  html { scroll-behavior: smooth; }
+/* ── Glow & Flicker ───────────────────────────────────────── */
+.phosphor-glow { text-shadow: 0 0 8px rgba(0,251,251,0.4); }
+.ghost-border  { border: 1px solid rgba(131,148,147,0.15); }
  
-  body {
-    background: var(--bg);
-    color: var(--white);
-    font-family: var(--font);
-    font-size: 14px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
+@keyframes flicker { 0% { opacity: 0.97; } 100% { opacity: 1; } }
+.phosphor-flicker { animation: flicker 0.5s infinite alternate; }
  
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg, transparent, transparent 2px,
-      rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px
-    );
-    pointer-events: none;
-    z-index: 9999;
-  }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.blink { animation: blink 1s step-end infinite; }
  
-  /* TOPBAR */
-  .topbar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    height: 38px;
-    padding: 0 1.5rem;
-    font-size: 12px;
-  }
+/* ── Material Icons ───────────────────────────────────────── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+}
+.icon-filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
  
-  .topbar-title { color: var(--green); margin-right: 2rem; white-space: nowrap; }
-  .topbar-title span { color: var(--muted); }
+/* ── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: #0e0e0e; }
+::-webkit-scrollbar-thumb { background: #00fbfb; }
  
-  .topbar-nav { display: flex; margin-left: auto; }
+/* ── Page system ──────────────────────────────────────────── */
+.page { display: none; }
+.page.active { display: block; animation: fadeIn 0.18s ease; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
  
-  .topbar-nav a {
-    color: var(--muted);
-    text-decoration: none;
-    padding: 0 1.2rem;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    border-left: 1px solid var(--border);
-    transition: color 0.15s, background 0.15s;
-    font-size: 12px;
-  }
+/* ── Progress bars ────────────────────────────────────────── */
+.bar-fill {
+  width: 0%;
+  transition: width 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
  
-  .topbar-nav a:hover { color: var(--green); background: var(--bg2); }
+/* ── Pixel grid ───────────────────────────────────────────── */
+.pixel-grid {
+  background-image: radial-gradient(#00fbfb 1px, transparent 1px);
+  background-size: 20px 20px;
+}
  
-  .topbar-clock {
-    color: var(--muted);
-    font-size: 11px;
-    padding-left: 1.2rem;
-    border-left: 1px solid var(--border);
-    height: 38px;
-    display: flex;
-    align-items: center;
-    min-width: 72px;
-  }
+/* ── Side nav: fixed total padding avoids layout shift ───── */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem 0.75rem 1.25rem;
+  border-left: 4px solid transparent;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #839493;
+  cursor: pointer;
+  background: transparent;
+  border-top: none; border-right: none; border-bottom: none;
+  width: 100%;
+  text-align: left;
+  transition: background 0.1s ease, color 0.1s ease, border-left-color 0.1s ease;
+  user-select: none;
+}
+.nav-link:hover:not(.active) { background: #1c1b1b; color: #00fbfb; }
+.nav-link.active {
+  color: #00fbfb;
+  background: #3a3939;
+  border-left-color: #00fbfb;
+  font-weight: 700;
+}
  
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    padding-top: 38px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+/* ── Top nav ──────────────────────────────────────────────── */
+.top-nav-link {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #839493;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 4px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  user-select: none;
+}
+.top-nav-link:hover:not(.active) { color: #00fbfb; }
+.top-nav-link:hover:not(.active)::after { content: '_'; }
+.top-nav-link.active { color: #00fbfb; border-bottom-color: #00fbfb; }
  
-  .hero-inner {
-    padding: 4rem 3rem 3rem;
-    max-width: 1100px;
-  }
+/* ── Tag chips ────────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid rgba(0,251,251,0.25);
+  color: #00fbfb;
+  font-family: monospace;
+}
  
-  .hero-name {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2.5rem;
-    line-height: 0.95;
-    letter-spacing: -0.02em;
-  }
- 
-  .hn-first {
-    font-size: clamp(3rem, 7.5vw, 6.5rem);
-    font-weight: 300;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-size: clamp(1rem, 2.2vw, 1.6rem);
-    margin-bottom: 0.3rem;
-  }
- 
-  .hn-last {
-    font-size: clamp(3.5rem, 8.5vw, 7.5rem);
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: -0.03em;
-  }
- 
-  .hero-prompt { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 2.5rem; }
- 
-  .pl { display: flex; align-items: baseline; gap: 0.5rem; font-size: 13px; }
-  .pp { color: var(--green); white-space: nowrap; }
-  .pc { color: var(--cyan); }
-  .pa { color: var(--amber); }
-  .po { color: var(--white); padding-left: 1.5rem; }
- 
-  .blink { animation: blink 1.1s step-end infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
- 
-  .hero-status {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    padding: 0.9rem 1.4rem;
-    border: 1px solid var(--border);
-    background: var(--bg2);
-    width: fit-content;
-    font-size: 12px;
-  }
- 
-  .sk { color: var(--muted); }
-  .sv { color: var(--amber); }
- 
-  /* BOX */
-  .box { border: 1px solid var(--border); background: var(--bg2); }
- 
-  .box-hdr {
-    background: var(--bg3);
-    border-bottom: 1px solid var(--border);
-    padding: 0.4rem 1rem;
-    font-size: 11px;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
- 
-  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-  .dr { background: #FF5F56; } .dy { background: #FFBD2E; } .dg { background: #27C93F; }
-  .box-hdr-t { margin-left: auto; }
- 
-  /* SECTIONS */
-  .wrap { max-width: 1100px; margin: 0 auto; width: 100%; padding: 0 3rem; }
- 
-  .section {
-    padding: 4rem 0;
-    border-top: 1px solid var(--border);
-  }
- 
-  .sec-hdr {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
-    font-size: 12px;
-  }
- 
-  .sc { color: var(--green); }
-  .sa { color: var(--cyan); }
-  .sl { flex: 1; border-top: 1px solid var(--border); }
-  .sn { color: var(--muted); }
- 
-  /* ABOUT */
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
- 
-  .about-text { padding: 1.5rem; }
-  .about-text p { color: var(--white); margin-bottom: 1rem; line-height: 1.8; font-size: 13px; }
-  .about-text p:last-child { margin-bottom: 0; }
- 
-  .skill-row {
-    display: grid;
-    grid-template-columns: 130px 1fr;
-    gap: 1rem;
-    padding: 0.6rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-    font-size: 12px;
-    align-items: center;
-  }
-  .skill-row:last-child { border-bottom: none; }
-  .sk2 { color: var(--muted); }
-  .sv2 { color: var(--cyan); }
- 
-  /* PROJECTS */
-  .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
- 
-  .proj-card {
-    border: 1px solid var(--border);
-    background: var(--bg2);
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .proj-card:hover { border-color: var(--green-dim); background: var(--bg3); }
- 
-  .proj-hdr {
-    background: var(--bg3);
-    border-bottom: 1px solid var(--border);
-    padding: 0.5rem 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 11px;
-  }
- 
-  .pid { color: var(--muted); }
- 
-  .pstatus {
-    font-size: 10px;
-    padding: 0.15rem 0.5rem;
-    border: 1px solid;
-    letter-spacing: 0.08em;
-  }
- 
-  .wip  { color: var(--amber); border-color: var(--amber); }
-  .done { color: var(--green); border-color: var(--green-dim); }
- 
-  .proj-body { padding: 1.5rem; }
- 
-  .proj-name {
-    color: var(--green);
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-  }
- 
-  .proj-eng { color: var(--amber); font-size: 11px; margin-bottom: 1rem; }
- 
-  .proj-desc { color: var(--muted); font-size: 12px; line-height: 1.75; }
- 
-  .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.2rem; }
- 
-  .ptag {
-    font-size: 10px;
-    padding: 0.2rem 0.5rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    letter-spacing: 0.06em;
-  }
- 
-  /* CONTACT */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
- 
-  .contact-ascii {
-    white-space: pre;
-    color: var(--green-dim);
-    font-size: 13px;
-    line-height: 1.4;
-  }
- 
-  .clink { padding: 1.5rem; }
- 
-  .crow {
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    gap: 1rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-    align-items: center;
-  }
-  .crow:last-child { border-bottom: none; }
-  .ck { color: var(--muted); font-size: 12px; }
-  .cv { color: var(--cyan); text-decoration: none; transition: color 0.15s; }
-  .cv:hover { color: var(--green); text-decoration: underline; }
- 
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 1rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    color: var(--muted);
-    background: var(--bg);
-  }
- 
-  footer .fg { color: var(--green-dim); }
- 
-  @keyframes glitch {
-    0%,60%,100% { text-shadow: none; }
-    20% { text-shadow: -2px 0 rgba(180,100,200,0.6), 2px 0 rgba(80,160,180,0.6); }
-    40% { text-shadow: 2px 0 rgba(180,100,200,0.6), -2px 0 rgba(80,160,180,0.6); }
-  }
- 
-  .hn-last:hover { animation: glitch 0.35s steps(1) 1; cursor: default; }
- 
-  @media (max-width: 768px) {
-    .about-grid, .proj-grid, .contact-grid { grid-template-columns: 1fr; }
-    .topbar-nav a:not(:last-child) { display: none; }
-    .wrap { padding: 0 1.5rem; }
-    .hero-inner { padding: 4rem 1.5rem 2rem; }
-    footer { padding: 1rem 1.5rem; flex-direction: column; gap: 0.4rem; text-align: center; }
-  }
+/* ── Table rows ───────────────────────────────────────────── */
+tbody tr {
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
 </style>
 </head>
-<body>
+<body class="font-body selection:bg-primary-container selection:text-on-primary-fixed">
  
-<nav class="topbar">
-  <div class="topbar-title"><span>root@</span>luke-portfolio<span>:~$</span></div>
-  <div class="topbar-nav">
-    <a href="#about">./about</a>
-    <a href="#projects">./projects</a>
-    <a href="#contact">./contact</a>
-  </div>
-  <div class="topbar-clock" id="clock"></div>
-</nav>
- 
-<!-- HERO -->
-<section class="hero" id="top">
-  <div class="hero-inner">
- 
-    <div class="hero-name">
-      <span class="hn-first">Luke</span><span class="hn-last">Cuzzetto</span>
-    </div>
- 
-    <div class="hero-prompt">
-      <div class="pl"><span class="pp">luke@portfolio:~$</span><span class="pc"> whoami</span></div>
-      <div class="pl"><span class="po" id="out1"></span></div>
- 
-      <div class="pl" style="margin-top:.75rem"><span class="pp">luke@portfolio:~$</span><span class="pc"> cat </span><span class="pa">about.txt</span></div>
-      <div class="pl"><span class="po" id="out2"></span></div>
-      <div class="pl"><span class="po" id="out3"></span></div>
- 
-      <div class="pl" style="margin-top:.75rem"><span class="pp">luke@portfolio:~$</span><span class="blink"> █</span></div>
-    </div>
- 
-    <div class="hero-status">
-      <div><span class="sk">location:</span><span class="sv"> Kamloops, BC</span></div>
-      <div><span class="sk">degree:</span><span class="sv"> B.Sc Computer Science</span></div>
-      <div><span class="sk">school:</span><span class="sv"> Thompson Rivers University</span></div>
-      <div><span class="sk">graduated:</span><span class="sv"> Dec 2024</span></div>
-      <div><span class="sk">status:</span><span class="sv" style="color:var(--green)"> open_to_work</span></div>
-    </div>
- 
-  </div>
-</section>
- 
-<!-- ABOUT -->
-<div class="wrap" id="about">
-<section class="section">
-  <div class="sec-hdr">
-    <span class="sc">$</span><span class="sa"> cat README.md</span>
-    <div class="sl"></div>
-    <span class="sn">// about_me</span>
-  </div>
- 
-  <div class="about-grid">
-    <div class="box">
-      <div class="box-hdr">
-        <span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span>
-        <span class="box-hdr-t">backstory.txt</span>
-      </div>
-      <div class="about-text">
-        <p>From the time I was 10 years old, I was playing games on my family's computer — immersing myself in the stories and worlds built by past developers. Gaming became a safe haven.</p>
-        <p>As I grew older, I began to wonder how these games were actually made. I started learning programming and game development after high school, and I was hooked. I knew I wanted to create worlds that other people like me could sink hours into without remorse.</p>
-        <p>I graduated from Thompson Rivers University in December 2024 with a Bachelor of Computer Science, and am actively pursuing a career in Game Development.</p>
-      </div>
-    </div>
- 
-    <div class="box">
-      <div class="box-hdr">
-        <span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span>
-        <span class="box-hdr-t">skills.json</span>
-      </div>
-      <div class="skill-row"><span class="sk2">languages</span><span class="sv2">C#, C++, GDScript, Python</span></div>
-      <div class="skill-row"><span class="sk2"></span><span class="sv2">Java, JavaScript, PHP, MySQL</span></div>
-      <div class="skill-row"><span class="sk2"></span><span class="sv2">HTML, CSS, AJAX</span></div>
-      <div class="skill-row"><span class="sk2">engines</span><span class="sv2">Unity, Unreal Engine, Godot</span></div>
-      <div class="skill-row"><span class="sk2">tools</span><span class="sv2">Blender, Git / GitHub</span></div>
-      <div class="skill-row"><span class="sk2">specialty</span><span class="sv2" style="color:var(--green)">Game Development</span></div>
-    </div>
-  </div>
-</section>
+<!-- CRT overlay -->
+<div class="scanline-overlay" aria-hidden="true"></div>
+<div class="pointer-events-none fixed inset-0 z-[199] opacity-[0.035] overflow-hidden" aria-hidden="true">
+  <div class="absolute w-full h-[3px] bg-gradient-to-b from-transparent via-white/25 to-transparent animate-scan"></div>
 </div>
  
-<!-- PROJECTS -->
-<div class="wrap" id="projects">
-<section class="section">
-  <div class="sec-hdr">
-    <span class="sc">$</span><span class="sa"> ls -la ./projects/</span>
-    <div class="sl"></div>
-    <span class="sn">// 4 entries found</span>
+ 
+<!-- ══════════════════════════════════
+     TOP APP BAR
+══════════════════════════════════ -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 border-b border-[#00fbfb]/10"
+        style="background: linear-gradient(to bottom, #0e0e0e 85%, transparent);">
+  <button class="text-xl font-bold text-[#00fbfb] phosphor-glow font-headline uppercase tracking-[0.12em]"
+          onclick="navigate('home')" aria-label="Go to home">
+    LUKE.DEV_v3.0
+  </button>
+  <nav class="hidden md:flex gap-8 items-center" aria-label="Primary navigation">
+    <button class="top-nav-link active" onclick="navigate('home')">[ROOT]</button>
+    <button class="top-nav-link"        onclick="navigate('projects')">[PROJECTS]</button>
+    <button class="top-nav-link"        onclick="navigate('about')">[ABOUT]</button>
+  </nav>
+  <div id="clock" class="text-[#00fbfb] font-label uppercase tracking-[0.1em] text-[0.6875rem]"
+       aria-live="polite">00:00:00_UTC</div>
+</header>
+ 
+ 
+<!-- ══════════════════════════════════
+     SIDE NAV
+══════════════════════════════════ -->
+<aside class="fixed left-0 top-0 h-full pt-20 z-40 flex flex-col bg-[#0e0e0e] border-r border-[#00fbfb]/15 w-64"
+       style="box-shadow: 4px 0 0 0 #0e0e0e;">
+  <div class="px-5 py-4 mb-2">
+    <div class="text-[#00fbfb] font-black font-headline tracking-widest text-xs">PORTFOLIO_ACCESS</div>
+    <div class="text-[#839493] text-[10px] tracking-widest mt-0.5">FREELANCE_WEB_DEV</div>
   </div>
+  <nav class="flex flex-col" aria-label="Section navigation">
+    <button class="nav-link active" onclick="navigate('home')">
+      <span class="material-symbols-outlined text-sm" aria-hidden="true">home</span>[ROOT] Home
+    </button>
+    <button class="nav-link" onclick="navigate('projects')">
+      <span class="material-symbols-outlined text-sm" aria-hidden="true">folder_open</span>[LS] Projects
+    </button>
+    <button class="nav-link" onclick="navigate('about')">
+      <span class="material-symbols-outlined text-sm" aria-hidden="true">person</span>[WH] About
+    </button>
+  </nav>
  
-  <div class="proj-grid">
- 
-    <div class="proj-card">
-      <div class="proj-hdr">
-        <span class="pid">proj_001</span>
-        <span class="pstatus wip">WIP</span>
-      </div>
-      <div class="proj-body">
-        <div class="proj-name">Breach and Clear</div>
-        <div class="proj-eng">// Unreal Engine 5 · 3D Tactical FPS</div>
-        <div class="proj-desc">Ongoing tactical FPS inspired by Escape from Tarkov and Insurgency: Sandstorm. Built to learn KINEMATION — a professional FPS animation tool used industry-wide. Features procedural animations, breach-and-clear room mechanics, and civilian AI. Started post-graduation, Dec 2024.</div>
-        <div class="proj-tags">
-          <span class="ptag">UE5</span><span class="ptag">C++</span><span class="ptag">KINEMATION</span><span class="ptag">Procedural Anim</span><span class="ptag">FPS</span>
+  <!-- Availability widget -->
+  <div class="mt-auto p-5">
+    <div class="bg-surface-container-low ghost-border p-3 relative overflow-hidden">
+      <div class="absolute inset-0 pixel-grid opacity-[0.04]" aria-hidden="true"></div>
+      <div class="relative z-10">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-1.5 h-1.5 bg-primary-fixed animate-pulse rounded-full inline-block"></span>
+          <span class="text-[10px] font-mono text-primary-fixed uppercase tracking-widest">AVAILABLE</span>
         </div>
-      </div>
-    </div>
- 
-    <div class="proj-card">
-      <div class="proj-hdr">
-        <span class="pid">proj_002</span>
-        <span class="pstatus done">SHIPPED</span>
-      </div>
-      <div class="proj-body">
-        <div class="proj-name">Colossal Brew</div>
-        <div class="proj-eng">// Godot · 2D Platformer · Game Jam</div>
-        <div class="proj-desc">Built during an IEEE Game Dev Seminar, Summer 2024. Team of 4 (2 students + professor as Lore creator). A 2D platformer set on living colossi — the creatures act as levels. Enemies, collectibles, Home Base system. Led core combat, movement mechanics, and initial game loop design.</div>
-        <div class="proj-tags">
-          <span class="ptag">Godot</span><span class="ptag">GDScript</span><span class="ptag">2D Platformer</span><span class="ptag">Game Jam</span><span class="ptag">Team</span>
-        </div>
-      </div>
-    </div>
- 
-    <div class="proj-card">
-      <div class="proj-hdr">
-        <span class="pid">proj_003</span>
-        <span class="pstatus done">SHIPPED</span>
-      </div>
-      <div class="proj-body">
-        <div class="proj-name">Procedural Dungeon Creator</div>
-        <div class="proj-eng">// Unity · Procedural Generation</div>
-        <div class="proj-desc">Academic project from third-year Proc Gen class. A 2D dungeon generator using multiple algorithms to produce dungeons with connecting corridors in real time. Includes a scripted Enemy Spawner Agent controlling enemy count and difficulty. Every button press yields an entirely new dungeon layout.</div>
-        <div class="proj-tags">
-          <span class="ptag">Unity</span><span class="ptag">C#</span><span class="ptag">Proc Gen</span><span class="ptag">Algorithms</span><span class="ptag">Roguelike</span>
-        </div>
-      </div>
-    </div>
- 
-    <div class="proj-card">
-      <div class="proj-hdr">
-        <span class="pid">proj_004</span>
-        <span class="pstatus done">SHIPPED</span>
-      </div>
-      <div class="proj-body">
-        <div class="proj-name">Aim Trainer</div>
-        <div class="proj-eng">// Unity · First Project</div>
-        <div class="proj-desc">First ever game dev project — built it because I was deep into Counter-Strike and wanted something to sharpen my aim. Timed trials, interactive start trigger, target hit counter, auto-reset. Introduced core Unity concepts: 3D movement, raycasts, particle systems, object instantiation, audio sources.</div>
-        <div class="proj-tags">
-          <span class="ptag">Unity</span><span class="ptag">C#</span><span class="ptag">First Project</span><span class="ptag">Counter-Strike</span><span class="ptag">Raycasts</span>
-        </div>
-      </div>
-    </div>
- 
-  </div>
-</section>
-</div>
- 
-<!-- CONTACT -->
-<div class="wrap" id="contact">
-<section class="section">
-  <div class="sec-hdr">
-    <span class="sc">$</span><span class="sa"> cat contact.cfg</span>
-    <div class="sl"></div>
-    <span class="sn">// reach_out</span>
-  </div>
- 
-  <div class="contact-grid">
-    <pre class="contact-ascii">
-┌─────────────────────────────────┐
-│                                 │
-│   &gt; AVAILABLE FOR HIRE          │
-│                                 │
-│   Looking for roles in:         │
-│   - Game Development            │
-│   - Gameplay Programming        │
-│   - Tools / Engine Dev          │
-│                                 │
-│   Location : Kamloops, BC       │
-│   Open to  : Remote / Relocate  │
-│                                 │
-│   [ SEND MESSAGE ]──────────── &gt;│
-│                                 │
-└─────────────────────────────────┘</pre>
- 
-    <div class="box">
-      <div class="box-hdr">
-        <span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span>
-        <span class="box-hdr-t">links.cfg</span>
-      </div>
-      <div class="clink">
-        <div class="crow">
-          <span class="ck">email</span>
-          <a class="cv" href="/cdn-cgi/l/email-protection#4c202d2f393636293838230c2b212d2520622f2321"><span class="__cf_email__" data-cfemail="cca0adafb9b6b6a9b8b8a38caba1ada5a0e2afa3a1">[email&#160;protected]</span></a>
-        </div>
-        <div class="crow">
-          <span class="ck">github</span>
-          <a class="cv" href="https://github.com/LukeCuzzetto" target="_blank">github.com/LukeCuzzetto</a>
-        </div>
-        <div class="crow">
-          <span class="ck">linkedin</span>
-          <a class="cv" href="https://www.linkedin.com/in/luke-cuzzetto-07667b252/" target="_blank">linkedin.com/in/luke-cuzzetto</a>
-        </div>
+        <div class="text-[9px] text-outline tracking-wider uppercase mt-0.5">Open to new clients</div>
+        <div class="text-[9px] text-outline tracking-wider">Kamloops, BC · Remote OK</div>
       </div>
     </div>
   </div>
-</section>
-</div>
+</aside>
  
-<footer>
-  <div><span class="fg">luke@cuzzetto</span>:~$ &nbsp;© 2025 — All Rights Reserved</div>
-  <div>build: <span class="fg">v1.0.0</span> &nbsp;|&nbsp; stack: <span class="fg">html/css/js</span></div>
+ 
+<!-- ══════════════════════════════════
+     HOME
+══════════════════════════════════ -->
+<main id="page-home" class="page active ml-64 pt-24 pb-20 px-12 min-h-screen">
+ 
+  <!-- Hero -->
+  <section class="mb-14">
+    <p class="text-primary-container font-label text-[0.6875rem] tracking-[0.2em] mb-2 phosphor-glow">
+      01_PORTFOLIO_INIT
+    </p>
+    <h1 class="text-white text-[3.5rem] font-bold leading-none tracking-[-0.05em] uppercase phosphor-glow">
+      FREELANCE<span class="blink text-primary-fixed">_</span>
+    </h1>
+    <h2 class="text-primary-fixed text-[3.5rem] font-bold leading-none tracking-[-0.05em] uppercase phosphor-glow -mt-2">
+      WEB_DEV
+    </h2>
+    <div class="mt-5 flex items-center gap-4">
+      <div class="h-1 w-52 bg-surface-container-high overflow-hidden">
+        <div class="h-full bg-primary-container bar-fill" data-width="100%"></div>
+      </div>
+      <span class="text-secondary font-mono text-xs tracking-tighter">PORTFOLIO_LOADED</span>
+    </div>
+    <p class="mt-6 text-on-surface-variant text-sm max-w-lg leading-relaxed">
+      Design-focused web developer based in Kamloops, BC. Building client sites and custom web apps —
+      from auto shop redesigns to real-time market analytics platforms.
+    </p>
+  </section>
+ 
+  <div class="grid grid-cols-12 gap-12 items-start">
+ 
+    <!-- Featured project card -->
+    <div class="col-span-8 flex flex-col gap-6">
+      <div class="relative group cursor-crosshair" onclick="openProject('cs2')" role="button" tabindex="0">
+        <div class="absolute -top-4 -left-4 text-outline-variant text-[10px] font-mono select-none">
+          ID: FEAT_PROJECT_01
+        </div>
+        <div class="bg-surface-container-low p-1 border border-outline-variant/20 hover:border-primary-container/50 transition-colors duration-300">
+          <div class="aspect-video bg-surface-container-lowest relative overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0" style="background: radial-gradient(ellipse at 55% 40%, rgba(0,251,251,0.09) 0%, transparent 70%)"></div>
+            <div class="absolute inset-0 pixel-grid opacity-[0.04]" aria-hidden="true"></div>
+            <!-- Grid lines -->
+            <div class="absolute inset-0 flex flex-wrap opacity-[0.06] pointer-events-none" aria-hidden="true">
+              <div class="w-1/4 h-1/4 border border-primary-container/40"></div>
+              <div class="w-1/4 h-1/4 border border-primary-container/40"></div>
+              <div class="w-1/4 h-1/4 border border-primary-container/40"></div>
+              <div class="w-1/4 h-1/4 border border-primary-container/40"></div>
+              <div class="w-1/4 h-1/4 border border-primary-container/40"></div>
+              <div class="w-1/4 h-1/4 border border-primary-container/40"></div>
+              <div class="w-1/4 h-1/4 border border-primary-container/40"></div>
+              <div class="w-1/4 h-1/4 border border-primary-container/40"></div>
+            </div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="material-symbols-outlined text-primary-container text-6xl phosphor-glow mb-4" aria-hidden="true">show_chart</span>
+              <div class="bg-primary-container/10 backdrop-blur-sm p-4 border border-primary-container/30">
+                <p class="text-primary-container font-headline text-xs tracking-widest font-bold">CS2 SKIN MARKET TRACKER</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="grid grid-cols-2 gap-8 mt-2">
+        <div class="space-y-4">
+          <h3 class="text-primary font-headline text-xl font-bold phosphor-glow">CS2_MARKET_TRACKER</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">
+            Real-time CS2 skin market analytics app. Steam Market API integration with price history charts,
+            RSI and moving average overlays, and a live Gainers/Losers dashboard.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Node.js</span>
+            <span class="tag">Express</span>
+            <span class="tag">Steam API</span>
+            <span class="tag">Chart.js</span>
+          </div>
+          <button onclick="openProject('cs2')"
+                  class="bg-primary-fixed text-on-primary-fixed px-6 py-3 font-bold uppercase text-xs tracking-widest hover:brightness-110 active:scale-95 transition-all mt-2">
+            VIEW_PROJECT_
+          </button>
+        </div>
+        <div class="border-l border-outline-variant/30 pl-8 space-y-4">
+          <div class="flex justify-between items-center text-[10px] font-mono text-secondary uppercase">
+            <span>Backend</span><span>Node / Express</span>
+          </div>
+          <div class="h-[1px] bg-outline-variant/20"></div>
+          <div class="flex justify-between items-center text-[10px] font-mono text-secondary uppercase">
+            <span>Data</span><span>Steam Market API</span>
+          </div>
+          <div class="h-[1px] bg-outline-variant/20"></div>
+          <div class="flex justify-between items-center text-[10px] font-mono text-secondary uppercase">
+            <span>Indicators</span><span>RSI · MA</span>
+          </div>
+          <div class="h-[1px] bg-outline-variant/20"></div>
+          <div class="flex justify-between items-center text-[10px] font-mono text-secondary uppercase">
+            <span>Status</span><span class="text-primary-fixed">IN DEV</span>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Sidebar -->
+    <div class="col-span-4 space-y-10">
+ 
+      <div class="space-y-5">
+        <h4 class="text-primary-container font-label text-[0.6875rem] tracking-[0.2em] phosphor-glow">DEV_METRICS</h4>
+        <div class="space-y-6">
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-on-surface text-[10px] uppercase tracking-widest">Client Projects</span>
+              <span class="text-primary-container font-mono text-[10px]">Active</span>
+            </div>
+            <div class="flex gap-1 h-1">
+              <div class="flex-1 bg-primary-container"></div>
+              <div class="flex-1 bg-primary-container"></div>
+              <div class="flex-1 bg-primary-container"></div>
+              <div class="flex-1 bg-surface-container-high"></div>
+              <div class="flex-1 bg-surface-container-high"></div>
+              <div class="flex-1 bg-surface-container-high"></div>
+              <div class="flex-1 bg-surface-container-high"></div>
+              <div class="flex-1 bg-surface-container-high"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-on-surface text-[10px] uppercase tracking-widest">Apps in Dev</span>
+              <span class="text-primary-container font-mono text-[10px]">2 running</span>
+            </div>
+            <div class="flex gap-1 h-1">
+              <div class="flex-1 bg-primary-container"></div>
+              <div class="flex-1 bg-primary-container"></div>
+              <div class="flex-1 bg-surface-container-high"></div>
+              <div class="flex-1 bg-surface-container-high"></div>
+              <div class="flex-1 bg-surface-container-high"></div>
+              <div class="flex-1 bg-surface-container-high"></div>
+              <div class="flex-1 bg-surface-container-high"></div>
+              <div class="flex-1 bg-surface-container-high"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Terminal feed -->
+      <div>
+        <div class="text-[10px] font-mono text-secondary tracking-widest uppercase mb-2">DEV_LOG</div>
+        <div class="bg-surface-container-lowest p-4 border border-outline-variant/10 font-mono text-[10px] overflow-hidden h-56 flex flex-col" aria-live="polite" aria-label="Developer log feed">
+          <div id="terminal-feed" class="space-y-1.5 overflow-hidden flex-1 min-h-0"></div>
+          <div class="mt-2 text-primary-fixed opacity-60 text-xs select-none blink" aria-hidden="true">▮</div>
+        </div>
+      </div>
+ 
+      <button onclick="navigate('projects')"
+              class="w-full border border-outline/20 text-secondary-fixed-dim py-4 text-[10px] uppercase tracking-[0.2em] hover:bg-surface-container-high hover:text-primary-container transition-all">
+        VIEW_ALL_PROJECTS_
+      </button>
+    </div>
+ 
+  </div>
+</main>
+ 
+ 
+<!-- ══════════════════════════════════
+     PROJECTS
+══════════════════════════════════ -->
+<main id="page-projects" class="page ml-64 pt-24 pb-20 px-8 min-h-screen">
+  <div class="max-w-7xl mx-auto grid grid-cols-12 gap-8">
+ 
+    <section class="col-span-12 mb-4">
+      <p class="font-label text-sm text-secondary uppercase tracking-[0.2em] mb-2">01_PROJECT_ARCHIVE</p>
+      <h1 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-primary-fixed phosphor-glow uppercase mb-4">
+        DEV_ARCHIVE_v03
+      </h1>
+      <div class="w-24 h-1 bg-primary-fixed mb-2"></div>
+    </section>
+ 
+    <!-- File listing table -->
+    <section class="col-span-12 lg:col-span-8">
+      <div class="bg-surface-container-lowest ghost-border p-1">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left font-mono text-[11px] leading-relaxed border-collapse">
+            <thead>
+              <tr class="text-secondary opacity-60 border-b border-outline-variant/30">
+                <th class="p-3 font-medium uppercase tracking-widest">TYPE</th>
+                <th class="p-3 font-medium uppercase tracking-widest">ROLE</th>
+                <th class="p-3 font-medium uppercase tracking-widest">CLIENT</th>
+                <th class="p-3 font-medium uppercase tracking-widest">SIZE</th>
+                <th class="p-3 font-medium uppercase tracking-widest">DATE</th>
+                <th class="p-3 font-medium uppercase tracking-widest">NAME</th>
+              </tr>
+            </thead>
+            <tbody class="text-on-surface-variant" id="projects-tbody">
+ 
+              <tr class="hover:bg-surface-container-high group" data-project="cs2">
+                <td class="p-3">web_app</td>
+                <td class="p-3">sole_dev</td>
+                <td class="p-3">personal</td>
+                <td class="p-3">~4.2K ln</td>
+                <td class="p-3">MAR 2026</td>
+                <td class="p-3">
+                  <div class="flex items-center gap-2 text-primary-fixed group-hover:phosphor-glow">
+                    <span class="material-symbols-outlined text-xs" aria-hidden="true">show_chart</span>
+                    <span>CS2_SKIN_MARKET_TRACKER</span>
+                  </div>
+                </td>
+              </tr>
+ 
+              <tr class="hover:bg-surface-container-high group bg-surface-container" data-project="battlestreet">
+                <td class="p-3">client_site</td>
+                <td class="p-3">design+dev</td>
+                <td class="p-3">BattleStreet</td>
+                <td class="p-3">~320K</td>
+                <td class="p-3">MAR 2026</td>
+                <td class="p-3">
+                  <div class="flex items-center gap-2 text-primary-fixed group-hover:phosphor-glow">
+                    <span class="material-symbols-outlined text-xs" aria-hidden="true">build</span>
+                    <span>BATTLESTREET_MOTORWERKS</span>
+                  </div>
+                </td>
+              </tr>
+ 
+              <tr class="hover:bg-surface-container-high group" data-project="portfolio">
+                <td class="p-3">portfolio</td>
+                <td class="p-3">design+dev</td>
+                <td class="p-3">self</td>
+                <td class="p-3">~18K</td>
+                <td class="p-3">MAR 2026</td>
+                <td class="p-3">
+                  <div class="flex items-center gap-2 text-primary-fixed group-hover:phosphor-glow">
+                    <span class="material-symbols-outlined text-xs" aria-hidden="true">code</span>
+                    <span>PORTFOLIO_TERMINAL_V3</span>
+                  </div>
+                </td>
+              </tr>
+ 
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="mt-4 flex justify-between items-center font-mono text-[10px] text-outline">
+        <div>TOTAL 3 OBJECTS // KAMLOOPS, BC</div>
+        <div><span class="text-primary-fixed">PAGE 1/1</span></div>
+      </div>
+    </section>
+ 
+    <!-- Preview panel -->
+    <section class="col-span-12 lg:col-span-4 flex flex-col gap-5">
+      <div class="bg-surface-container-high p-4 ghost-border">
+        <div class="flex justify-between items-center mb-4">
+          <span class="font-label text-[10px] tracking-widest text-secondary">PREVIEW_MODULE</span>
+          <span class="w-2 h-2 bg-primary-fixed animate-pulse rounded-full"></span>
+        </div>
+        <div class="aspect-video bg-surface-container-lowest relative overflow-hidden ghost-border mb-4">
+          <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 60%, rgba(0,251,251,0.1) 0%, transparent 65%)"></div>
+          <div class="absolute inset-0 pixel-grid opacity-[0.04]" aria-hidden="true"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span id="preview-icon" class="material-symbols-outlined text-primary-fixed/25 text-5xl" aria-hidden="true">show_chart</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between font-mono text-[11px]">
+            <span class="text-outline">PROJECT:</span>
+            <span id="preview-name" class="text-primary-fixed truncate ml-2 max-w-[170px]">CS2_SKIN_MARKET_TRACKER</span>
+          </div>
+          <div class="flex justify-between font-mono text-[11px]">
+            <span class="text-outline">TYPE:</span>
+            <span id="preview-type" class="text-on-surface">web_app</span>
+          </div>
+          <div class="flex justify-between font-mono text-[11px]">
+            <span class="text-outline">STATUS:</span>
+            <span id="preview-status" class="text-primary-fixed">IN_DEVELOPMENT</span>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Stack readout -->
+      <div class="bg-surface-container-lowest p-4 ghost-border font-mono text-[11px] leading-relaxed relative">
+        <div class="text-secondary opacity-50 mb-2 uppercase tracking-tighter text-[10px]">STACK_READOUT</div>
+        <div id="preview-stack" class="text-primary-fixed/80 space-y-1">
+          <div><span class="text-secondary">backend:</span>  Node.js / Express</div>
+          <div><span class="text-secondary">data:</span>     Steam Market API</div>
+          <div><span class="text-secondary">charts:</span>   Chart.js + RSI/MA</div>
+          <div><span class="text-secondary">frontend:</span> HTML · CSS · JS</div>
+        </div>
+        <div class="absolute bottom-2 right-2 flex gap-1" aria-hidden="true">
+          <div class="w-1 h-1 bg-primary-fixed/30"></div>
+          <div class="w-1 h-1 bg-primary-fixed/20"></div>
+          <div class="w-1 h-1 bg-primary-fixed/10"></div>
+        </div>
+      </div>
+ 
+      <button id="preview-btn" onclick="openProject('cs2')"
+              class="w-full bg-primary-fixed text-on-primary-fixed py-4 font-label font-bold tracking-[0.2em] uppercase hover:brightness-110 active:opacity-70 transition-all phosphor-glow">
+        OPEN_PROJECT_
+      </button>
+    </section>
+ 
+  </div>
+</main>
+ 
+ 
+<!-- ══════════════════════════════════
+     PROJECT DETAIL
+══════════════════════════════════ -->
+<main id="page-detail" class="page ml-64 pt-20 pb-20 min-h-screen">
+  <div class="p-8 lg:p-12">
+ 
+    <div class="mb-12">
+      <div id="detail-uid" class="text-outline text-xs tracking-[0.2em] mb-2 uppercase">
+        01_PROJECT_MANIFEST · UID: CS2-001
+      </div>
+      <h1 id="detail-title" class="text-6xl md:text-8xl font-black text-primary-fixed phosphor-glow tracking-tighter uppercase leading-none">
+        CS2_MARKET_TRACKER
+      </h1>
+      <div class="mt-4 flex flex-wrap items-center gap-4 text-secondary text-xs tracking-widest">
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 bg-primary-fixed animate-pulse rounded-full inline-block"></span>
+          <span id="detail-status">STATUS: IN_DEVELOPMENT</span>
+        </span>
+        <span class="text-outline">/</span>
+        <span id="detail-client">CLIENT: PERSONAL</span>
+        <span class="text-outline">/</span>
+        <span id="detail-role">ROLE: SOLE_DEV</span>
+      </div>
+      <p id="detail-desc" class="mt-5 text-on-surface-variant text-sm max-w-2xl leading-relaxed">
+        A full-stack web application for tracking Counter-Strike 2 skin prices in real time.
+        Integrates with the Steam Market API for live pricing data, price history, and analytics
+        via RSI and moving average overlays. Features a Gainers/Losers dashboard.
+      </p>
+      <div id="detail-tags" class="mt-4 flex flex-wrap gap-2">
+        <span class="tag">Node.js</span>
+        <span class="tag">Express</span>
+        <span class="tag">Steam Market API</span>
+        <span class="tag">Chart.js</span>
+        <span class="tag">RSI</span>
+        <span class="tag">Moving Average</span>
+      </div>
+    </div>
+ 
+    <div class="grid grid-cols-12 gap-6">
+ 
+      <!-- Metrics -->
+      <div class="col-span-12 lg:col-span-4 bg-surface-container p-6 border-l border-primary-container/20">
+        <div class="text-outline text-[10px] tracking-widest uppercase mb-6 flex justify-between">
+          <span>PROJECT_METRICS</span><span>[LIVE]</span>
+        </div>
+        <div id="detail-metrics" class="space-y-8"></div>
+      </div>
+ 
+      <!-- Visual block -->
+      <div class="col-span-12 lg:col-span-8 bg-surface-container-low overflow-hidden relative">
+        <div class="absolute top-4 right-4 z-10 bg-surface-container-lowest px-2 py-1 text-[9px] text-outline tracking-widest border border-outline/10 uppercase">
+          FIG_01: ARCH_OVERVIEW
+        </div>
+        <div class="h-[340px] w-full flex items-center justify-center bg-[#0e0e0e] relative">
+          <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 50%, rgba(0,251,251,0.05) 0%, transparent 65%)"></div>
+          <div class="absolute inset-0 pixel-grid opacity-[0.03]" aria-hidden="true"></div>
+          <div class="absolute inset-0 flex flex-wrap opacity-[0.07] pointer-events-none" aria-hidden="true">
+            <div class="w-1/4 h-1/4 border border-primary-container/20"></div>
+            <div class="w-1/4 h-1/4 border border-primary-container/20"></div>
+            <div class="w-1/4 h-1/4 border border-primary-container/20"></div>
+            <div class="w-1/4 h-1/4 border border-primary-container/20"></div>
+            <div class="w-1/4 h-1/4 border border-primary-container/20"></div>
+            <div class="w-1/4 h-1/4 border border-primary-container/20"></div>
+            <div class="w-1/4 h-1/4 border border-primary-container/20"></div>
+            <div class="w-1/4 h-1/4 border border-primary-container/20"></div>
+          </div>
+          <div class="z-10 text-center">
+            <span id="detail-icon" class="material-symbols-outlined text-primary-fixed/20 text-[6rem]" aria-hidden="true">show_chart</span>
+            <p id="detail-arch-label" class="text-outline text-[10px] tracking-widest mt-4 uppercase font-mono">
+              SYSTEM_ARCHITECTURE // CS2_MARKET_TRACKER
+            </p>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Build log -->
+      <div class="col-span-12 bg-surface-container-lowest border-t border-primary-container/10 p-6 font-mono text-[11px]">
+        <div class="flex justify-between items-center mb-4 border-b border-primary-container/5 pb-2">
+          <span class="text-primary-fixed uppercase tracking-widest font-headline font-bold">BUILD_LOG</span>
+          <span class="text-outline-variant text-[10px]">AUTO_SCROLL: ON</span>
+        </div>
+        <div id="detail-log" class="space-y-1.5 h-44 overflow-y-auto pr-4" aria-live="polite"></div>
+      </div>
+ 
+    </div>
+ 
+    <div class="mt-8">
+      <button onclick="navigate('projects')"
+              class="border border-outline/20 text-secondary-fixed-dim px-6 py-3 text-[10px] uppercase tracking-[0.2em] hover:bg-surface-container-high hover:text-primary-container transition-all">
+        ← BACK_TO_ARCHIVE
+      </button>
+    </div>
+  </div>
+</main>
+ 
+ 
+<!-- ══════════════════════════════════
+     ABOUT
+══════════════════════════════════ -->
+<main id="page-about" class="page ml-64 pt-24 pb-20 px-12 min-h-screen">
+ 
+  <div class="mb-12">
+    <p class="text-on-primary-container font-label uppercase tracking-[0.2em] text-[0.6875rem] mb-2">
+      01_SYSTEM_IDENTITY
+    </p>
+    <h1 class="text-primary-fixed font-headline text-6xl font-extrabold tracking-tighter phosphor-glow uppercase">
+      USER_PROFILE_LUKE
+    </h1>
+  </div>
+ 
+  <div class="grid grid-cols-12 gap-8">
+ 
+    <!-- Bio block -->
+    <div class="col-span-12 lg:col-span-8 bg-surface-container-low p-8 relative overflow-hidden group">
+      <div class="absolute top-0 right-0 p-4 font-label text-[10px] text-outline opacity-50" aria-hidden="true">ID: BIO_ROOT_001</div>
+      <div class="flex flex-col md:flex-row gap-10">
+ 
+        <!-- Portrait -->
+        <div class="w-44 h-44 bg-surface-container-high border border-primary-fixed/20 relative flex-shrink-0 group-hover:border-primary-fixed/45 transition-colors overflow-hidden" aria-label="Profile picture placeholder">
+          <div class="absolute inset-0 pixel-grid opacity-15" aria-hidden="true"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary-fixed/35 text-5xl icon-filled" aria-hidden="true">person</span>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-tr from-primary-container/15 to-transparent" aria-hidden="true"></div>
+        </div>
+ 
+        <!-- Neofetch -->
+        <div class="flex-grow font-mono text-sm leading-relaxed">
+          <div class="mb-4">
+            <span class="text-primary-fixed font-bold">luke</span>@<span class="text-primary-fixed font-bold">luke.dev</span>
+            <div class="h-[1px] bg-primary-container/30 w-full mt-1"></div>
+          </div>
+          <div class="grid grid-cols-[115px_1fr] gap-y-2 text-sm">
+            <div class="text-secondary font-bold">LOCATION:</div>  <div class="text-on-surface-variant">Kamloops, BC, Canada</div>
+            <div class="text-secondary font-bold">ROLE:</div>      <div class="text-on-surface-variant">Freelance Web Designer / Developer</div>
+            <div class="text-secondary font-bold">STACK:</div>     <div class="text-on-surface-variant">HTML · CSS · JavaScript · Node.js</div>
+            <div class="text-secondary font-bold">EDITOR:</div>    <div class="text-on-surface-variant">VS Code</div>
+            <div class="text-secondary font-bold">SPECIALTY:</div> <div class="text-on-surface-variant">Client sites · Web applications</div>
+            <div class="text-secondary font-bold">INTERESTS:</div> <div class="text-on-surface-variant">CS2 · Data visualization · Clean UI</div>
+            <div class="text-secondary font-bold">STATUS:</div>    <div class="text-primary-fixed">Available for new work</div>
+          </div>
+          <blockquote class="mt-7 text-on-surface-variant italic border-l-2 border-primary-fixed/30 pl-4 bg-surface-container-highest/30 py-2 text-sm not-italic">
+            "I design and build websites for local businesses and develop personal web apps.
+             Clean code, sharp visuals, things that actually work."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Diagnostics -->
+    <div class="col-span-12 lg:col-span-4 bg-surface-container-low p-6 flex flex-col gap-6">
+      <div class="flex justify-between items-center">
+        <h3 class="font-label text-xs tracking-widest text-primary-fixed">CORE_DIAGNOSTICS</h3>
+        <span class="material-symbols-outlined text-primary-fixed text-sm" aria-hidden="true">settings_input_component</span>
+      </div>
+      <div class="space-y-5">
+        <div>
+          <div class="flex justify-between items-end mb-2">
+            <span class="text-[10px] text-on-surface-variant uppercase tracking-widest">Design Quality</span>
+            <span class="text-[10px] text-primary-fixed font-mono">HIGH</span>
+          </div>
+          <div class="w-full bg-surface-container-high h-1">
+            <div class="bg-primary-fixed h-full bar-fill shadow-[0_0_8px_rgba(0,251,251,0.45)]" data-width="92%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between items-end mb-2">
+            <span class="text-[10px] text-on-surface-variant uppercase tracking-widest">Frontend Skill</span>
+            <span class="text-[10px] text-primary-fixed font-mono">88%</span>
+          </div>
+          <div class="w-full bg-surface-container-high h-1">
+            <div class="bg-primary-fixed h-full bar-fill shadow-[0_0_8px_rgba(0,251,251,0.45)]" data-width="88%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between items-end mb-2">
+            <span class="text-[10px] text-on-surface-variant uppercase tracking-widest">Client Satisfaction</span>
+            <span class="text-[10px] text-primary-fixed font-mono">OPTIMAL</span>
+          </div>
+          <div class="w-full bg-surface-container-high h-1">
+            <div class="bg-primary-fixed h-full bar-fill shadow-[0_0_8px_rgba(0,251,251,0.45)]" data-width="97%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-auto pt-5 border-t border-outline-variant/20 font-mono text-[10px] space-y-1.5 text-on-secondary-container">
+        <p>[boot] LOADING_PORTFOLIO...</p>
+        <p>[init] DESIGN_MODULES: OK</p>
+        <p>[init] DEV_TOOLS: OK</p>
+        <p class="text-primary-fixed">[live] ACCEPTING_PROJECTS<span class="blink">_</span></p>
+      </div>
+    </div>
+ 
+    <!-- Skills -->
+    <div class="col-span-12 bg-surface-container-lowest border border-primary-fixed/5 p-8">
+      <div class="flex items-center gap-4 mb-8">
+        <h2 class="font-headline text-2xl font-bold text-primary phosphor-glow">SKILL_LOADOUT</h2>
+        <div class="flex-grow h-[1px] bg-primary-fixed/10"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-10">
+        <div class="space-y-2">
+          <div class="flex justify-between font-label text-[10px] tracking-widest">
+            <span class="text-on-surface">HTML / CSS</span><span class="text-primary-fixed">95%</span>
+          </div>
+          <div class="font-mono text-primary-fixed text-xs">[========================&gt;----]</div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between font-label text-[10px] tracking-widest">
+            <span class="text-on-surface">JavaScript</span><span class="text-primary-fixed">88%</span>
+          </div>
+          <div class="font-mono text-primary-fixed text-xs">[======================&gt;-------]</div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between font-label text-[10px] tracking-widest">
+            <span class="text-on-surface">UI / UX Design</span><span class="text-primary-fixed">85%</span>
+          </div>
+          <div class="font-mono text-primary-fixed text-xs">[=====================&gt;--------]</div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between font-label text-[10px] tracking-widest">
+            <span class="text-on-surface">Node.js / Express</span><span class="text-primary-fixed">79%</span>
+          </div>
+          <div class="font-mono text-primary-fixed text-xs">[===================&gt;----------]</div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between font-label text-[10px] tracking-widest">
+            <span class="text-on-surface">Client Communication</span><span class="text-primary-fixed">90%</span>
+          </div>
+          <div class="font-mono text-primary-fixed text-xs">[======================&gt;-------]</div>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between font-label text-[10px] tracking-widest">
+            <span class="text-on-surface">Data Visualization</span><span class="text-primary-fixed">72%</span>
+          </div>
+          <div class="font-mono text-primary-fixed text-xs">[==================&gt;-----------]</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Stats cluster -->
+    <div class="col-span-12 md:col-span-4 bg-surface-container-highest/70 backdrop-blur-xl p-6 border border-white/5">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="material-symbols-outlined text-secondary text-lg" aria-hidden="true">web</span>
+        <span class="font-label text-[10px] tracking-widest text-on-surface-variant">SITES_SHIPPED</span>
+      </div>
+      <div class="text-3xl font-bold font-headline text-primary mb-1">Active</div>
+      <div class="text-[10px] text-on-surface-variant font-mono uppercase">Client projects delivered</div>
+    </div>
+ 
+    <div class="col-span-12 md:col-span-4 bg-surface-container-highest/70 backdrop-blur-xl p-6 border border-white/5">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="material-symbols-outlined text-secondary text-lg" aria-hidden="true">location_on</span>
+        <span class="font-label text-[10px] tracking-widest text-on-surface-variant">BASED_IN</span>
+      </div>
+      <div class="text-3xl font-bold font-headline text-primary mb-1">Kamloops</div>
+      <div class="text-[10px] text-on-surface-variant font-mono uppercase">British Columbia, Canada</div>
+    </div>
+ 
+    <div class="col-span-12 md:col-span-4 bg-surface-container-highest/70 backdrop-blur-xl p-6 border border-white/5">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="material-symbols-outlined text-secondary text-lg" aria-hidden="true">verified</span>
+        <span class="font-label text-[10px] tracking-widest text-on-surface-variant">AVAILABILITY</span>
+      </div>
+      <div class="text-3xl font-bold font-headline text-primary-fixed phosphor-glow mb-1">OPEN</div>
+      <div class="text-[10px] text-on-surface-variant font-mono uppercase">Available for new work</div>
+    </div>
+ 
+  </div>
+</main>
+ 
+ 
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
+<footer class="fixed bottom-0 w-full z-50 flex justify-between items-center px-5 py-1.5 border-t border-[#00fbfb]/10 bg-[#0e0e0e]">
+  <div class="flex gap-5 items-center">
+    <span class="text-[#00fbfb] font-mono text-[10px] tracking-tighter animate-pulse">LUKE.DEV // KAMLOOPS, BC</span>
+    <span class="text-[#93d2d1] font-mono text-[10px] tracking-tighter hidden sm:inline">FREELANCE_WEB_DEV</span>
+  </div>
+  <div class="flex gap-5">
+    <span class="text-[#93d2d1] font-mono text-[10px] tracking-tighter">
+      STATUS: <span class="text-primary-fixed">ONLINE</span>
+    </span>
+    <span class="text-[#839493]/50 font-mono text-[10px] tracking-tighter hidden md:inline">PORTFOLIO_v3.0.1</span>
+  </div>
 </footer>
  
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Live clock
-  function tick() {
-    const now = new Date();
-    const pad = n => String(n).padStart(2,'0');
-    document.getElementById('clock').textContent =
-      `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+ 
+<!-- ══════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════ -->
+<script>
+'use strict';
+ 
+// ── Project data ─────────────────────────────────────────────────
+const PROJECTS = {
+  cs2: {
+    uid:       '01_PROJECT_MANIFEST · UID: CS2-001',
+    title:     'CS2_MARKET_TRACKER',
+    status:    'STATUS: IN_DEVELOPMENT',
+    client:    'CLIENT: PERSONAL',
+    role:      'ROLE: SOLE_DEV',
+    icon:      'show_chart',
+    archLabel: 'CS2_SKIN_MARKET_TRACKER',
+    desc: 'A full-stack web application for tracking Counter-Strike 2 skin prices in real time. ' +
+          'Integrates with the Steam Market API for live pricing, price history storage, and analytics ' +
+          'via RSI and moving average overlays. Features a Gainers/Losers dashboard for quick market reads.',
+    tags: ['Node.js','Express','Steam Market API','Chart.js','RSI','Moving Average'],
+    metrics: [
+      { label: 'API Coverage',   val: 'Steam', w: '90%' },
+      { label: 'Features Done',  val: '~65%',  w: '65%' },
+      { label: 'Chart Accuracy', val: 'High',  w: '92%' },
+    ],
+    logs: [
+      { k: 'boot',   c: 'text-secondary',          m: 'INITIALIZING_CS2_TRACKER...' },
+      { k: 'init',   c: 'text-on-surface-variant',  m: 'CONNECTING_TO_STEAM_MARKET_API' },
+      { k: 'fetch',  c: 'text-primary',             m: 'PRICE_HISTORY: 90-DAY_PULL_COMPLETE' },
+      { k: 'calc',   c: 'text-on-surface-variant',  m: 'COMPUTING_RSI(14)_FOR_ALL_TRACKED_ITEMS' },
+      { k: 'calc',   c: 'text-on-surface-variant',  m: 'COMPUTING_MA(7)_AND_MA(30)' },
+      { k: 'render', c: 'text-primary-fixed',       m: 'GAINERS_LOSERS_DASHBOARD: READY' },
+      { k: 'live',   c: 'text-primary',             m: 'POLLING_INTERVAL: 5MIN' },
+      { k: 'status', c: 'text-primary-fixed',       m: 'TRACKER_ACTIVE — WATCHING_MARKET' },
+    ],
+    previewStack: [
+      ['backend',  'Node.js / Express'],
+      ['data',     'Steam Market API'],
+      ['charts',   'Chart.js + RSI/MA'],
+      ['frontend', 'HTML · CSS · JS'],
+    ],
+  },
+  battlestreet: {
+    uid:       '01_PROJECT_MANIFEST · UID: BSM-002',
+    title:     'BATTLESTREET_MTRWRKS',
+    status:    'STATUS: PITCH_DELIVERED',
+    client:    'CLIENT: BATTLESTREET_MOTORWERKS',
+    role:      'ROLE: DESIGNER + DEV',
+    icon:      'build',
+    archLabel: 'BATTLESTREET_MOTORWERKS',
+    desc: 'Full HTML/CSS redesign pitched to BattleStreet MotorWerks, an auto repair shop in ' +
+          'Kamloops, BC. Hand-coded with no frameworks — clean, professional layout focused on ' +
+          'trust signals, service listings, and easy contact pathways.',
+    tags: ['HTML','CSS','Client Site','Redesign','Kamloops BC'],
+    metrics: [
+      { label: 'Design Fidelity', val: '100%', w: '100%' },
+      { label: 'Page Speed',      val: 'Fast',  w: '95%'  },
+      { label: 'Mobile Ready',    val: 'Yes',   w: '100%' },
+    ],
+    logs: [
+      { k: 'init',    c: 'text-secondary',          m: 'LOADING_BATTLESTREET_PROJECT...' },
+      { k: 'design',  c: 'text-on-surface-variant',  m: 'WIREFRAMES_APPROVED: LAYOUT_V3' },
+      { k: 'build',   c: 'text-primary',             m: 'HTML_STRUCTURE: COMPLETE' },
+      { k: 'build',   c: 'text-on-surface-variant',  m: 'CSS_STYLING: COMPLETE' },
+      { k: 'test',    c: 'text-on-surface-variant',  m: 'CROSS_BROWSER_CHECK: PASS' },
+      { k: 'mobile',  c: 'text-primary-fixed',       m: 'RESPONSIVE_BREAKPOINTS: PASS' },
+      { k: 'pitch',   c: 'text-primary',             m: 'PITCH_PACKAGE_BUILT' },
+      { k: 'status',  c: 'text-primary-fixed',       m: 'AWAITING_CLIENT_SIGN-OFF' },
+    ],
+    previewStack: [
+      ['stack',    'Pure HTML / CSS'],
+      ['client',   'BattleStreet MotorWerks'],
+      ['location', 'Kamloops, BC'],
+      ['type',     'Client Pitch Site'],
+    ],
+  },
+  portfolio: {
+    uid:       '01_PROJECT_MANIFEST · UID: PORT-003',
+    title:     'PORTFOLIO_TERMINAL_V3',
+    status:    'STATUS: LIVE',
+    client:    'CLIENT: SELF',
+    role:      'ROLE: DESIGNER + DEV',
+    icon:      'code',
+    archLabel: 'PORTFOLIO_TERMINAL_V3',
+    desc: "This portfolio — built from a Google Stitch design concept and coded into a fully " +
+          "wired single-file SPA. Terminal / hardened-console aesthetic with a cyan phosphor " +
+          "colour system, CRT scanline overlay, live UTC clock, animated dev log, and " +
+          "multi-page navigation all in one file.",
+    tags: ['HTML','CSS','JavaScript','Tailwind','SPA','No Build Tools'],
+    metrics: [
+      { label: 'Pages Wired',  val: '4',      w: '100%' },
+      { label: 'File Size',    val: '1 file',  w: '80%'  },
+      { label: 'Dependencies', val: 'Zero',    w: '100%' },
+    ],
+    logs: [
+      { k: 'init',   c: 'text-secondary',          m: 'STITCH_EXPORT_RECEIVED...' },
+      { k: 'parse',  c: 'text-on-surface-variant',  m: 'EXTRACTING_4_HTML_SCREENS' },
+      { k: 'merge',  c: 'text-primary',             m: 'MERGING_INTO_SINGLE-FILE_SPA' },
+      { k: 'fix',    c: 'text-on-surface-variant',  m: 'WIRING_NAVIGATION_SYSTEM' },
+      { k: 'fix',    c: 'text-on-surface-variant',  m: 'REPLACING_BROKEN_IMAGE_SRCS' },
+      { k: 'add',    c: 'text-primary',             m: 'LIVE_CLOCK + DEV_LOG_FEED' },
+      { k: 'polish', c: 'text-primary-fixed',       m: 'CONTENT_UPDATED_WITH_REAL_WORK' },
+      { k: 'done',   c: 'text-primary-fixed',       m: 'PORTFOLIO: ONLINE' },
+    ],
+    previewStack: [
+      ['stack',  'HTML · CSS · Vanilla JS'],
+      ['styles', 'Tailwind CDN'],
+      ['type',   'Single-File SPA'],
+      ['tools',  'Google Stitch → Custom'],
+    ],
+  },
+};
+ 
+// ── Navigation ────────────────────────────────────────────────────
+const PAGE_TITLES = {
+  home:     'LUKE.DEV_v3.0',
+  projects: 'LUKE.DEV // PROJECTS',
+  detail:   'LUKE.DEV // PROJECT DETAIL',
+  about:    'LUKE.DEV // ABOUT',
+};
+const TOP_IDX  = { home: 0, projects: 1, detail: 1, about: 2 };
+const SIDE_IDX = { home: 0, projects: 1, detail: 1, about: 2 };
+ 
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if (target) target.classList.add('active');
+ 
+  document.querySelectorAll('.top-nav-link').forEach((el, i) => {
+    el.classList.toggle('active', i === TOP_IDX[page]);
+  });
+  document.querySelectorAll('.nav-link').forEach((el, i) => {
+    el.classList.toggle('active', i === SIDE_IDX[page]);
+  });
+ 
+  document.title = PAGE_TITLES[page] || 'LUKE.DEV_v3.0';
+  window.scrollTo({ top: 0, behavior: 'instant' });
+ 
+  // Trigger bar animations after DOM paint
+  requestAnimationFrame(() => requestAnimationFrame(animateBars));
+}
+ 
+// ── Open project detail ───────────────────────────────────────────
+let detailLogTimers = [];
+ 
+function openProject(key) {
+  const p = PROJECTS[key];
+  if (!p) return;
+ 
+  // Clear any previous log animation timers
+  detailLogTimers.forEach(clearTimeout);
+  detailLogTimers = [];
+ 
+  // Populate fields
+  setTxt('detail-uid',        p.uid);
+  setTxt('detail-title',      p.title);
+  setTxt('detail-status',     p.status);
+  setTxt('detail-client',     p.client);
+  setTxt('detail-role',       p.role);
+  setTxt('detail-desc',       p.desc);
+  setTxt('detail-arch-label', `SYSTEM_ARCHITECTURE // ${p.archLabel}`);
+  setTxt('detail-icon',       p.icon);
+ 
+  // Tags
+  const tagsEl = document.getElementById('detail-tags');
+  if (tagsEl) tagsEl.innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
+ 
+  // Metrics
+  const metricsEl = document.getElementById('detail-metrics');
+  if (metricsEl) {
+    metricsEl.innerHTML = p.metrics.map(m => `
+      <div>
+        <div class="flex justify-between items-end mb-2">
+          <span class="text-outline-variant text-[10px] uppercase">${m.label}</span>
+          <span class="text-primary-fixed font-bold text-xl tracking-tighter">${m.val}</span>
+        </div>
+        <div class="h-1 bg-surface-container-high w-full">
+          <div class="h-full bg-primary-fixed bar-fill shadow-[0_0_8px_rgba(0,251,251,0.35)]"
+               data-width="${m.w}"></div>
+        </div>
+      </div>`).join('');
   }
-  tick(); setInterval(tick, 1000);
  
-  // Typewriter
-  const lines = [
-    { id:'out1', text:'Game Developer & Computer Science Graduate', delay:500 },
-    { id:'out2', text:'Gamer to the core. Passionate about building immersive games and experiences.', delay:1200 },
-    { id:'out3', text:'From sinking hours into other people\'s worlds — to building my own.', delay:2600 },
-  ];
+  // Build log — staggered
+  const logEl = document.getElementById('detail-log');
+  if (logEl) {
+    logEl.innerHTML = '';
+    p.logs.forEach((line, i) => {
+      const t = setTimeout(() => {
+        const div = document.createElement('div');
+        div.className = 'flex gap-4';
+        div.innerHTML = `<span class="text-secondary shrink-0">[${line.k}]</span><span class="${line.c}">${line.m}</span>`;
+        logEl.appendChild(div);
+        logEl.scrollTop = logEl.scrollHeight;
+      }, i * 110);
+      detailLogTimers.push(t);
+    });
+  }
  
-  lines.forEach(({id, text, delay}) => {
-    const el = document
+  navigate('detail');
+}
+ 
+// Update projects page preview panel
+function updatePreview(key) {
+  const p = PROJECTS[key];
+  if (!p) return;
+  setTxt('preview-name',   p.archLabel);
+  setTxt('preview-type',   p.tags[0] || '');
+  setTxt('preview-status', p.status.replace('STATUS: ', ''));
+  setTxt('preview-icon',   p.icon);
+ 
+  const stackEl = document.getElementById('preview-stack');
+  if (stackEl && p.previewStack) {
+    stackEl.innerHTML = p.previewStack.map(([k,v]) =>
+      `<div><span class="text-secondary">${k}:</span>  ${v}</div>`
+    ).join('');
+  }
+ 
+  const btn = document.getElementById('preview-btn');
+  if (btn) btn.onclick = () => openProject(key);
+}
+ 
+function setTxt(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+ 
+// ── Progress bar animation ────────────────────────────────────────
+function animateBars() {
+  document.querySelectorAll('.page.active .bar-fill').forEach(bar => {
+    const target = bar.dataset.width || '0%';
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+    // Force reflow then animate
+    void bar.offsetWidth;
+    bar.style.transition = 'width 1.1s cubic-bezier(0.4, 0, 0.2, 1)';
+    bar.style.width = target;
+  });
+}
+ 
+// ── Live UTC clock ────────────────────────────────────────────────
+function updateClock() {
+  const n = new Date();
+  const p = x => String(x).padStart(2, '0');
+  setTxt('clock', `${p(n.getUTCHours())}:${p(n.getUTCMinutes())}:${p(n.getUTCSeconds())}_UTC`);
+}
+updateClock();
+setInterval(updateClock, 1000);
+ 
+// ── Home terminal feed ────────────────────────────────────────────
+const BOOT_LINES = [
+  { c: 'text-secondary',          m: 'PORTFOLIO_TERMINAL_V3 — ONLINE' },
+  { c: 'text-on-surface-variant', m: 'INDEXING_PROJECTS...' },
+  { c: 'text-primary',            m: 'BATTLESTREET_MTRWRKS: INDEXED' },
+  { c: 'text-primary',            m: 'CS2_SKIN_TRACKER: INDEXED' },
+  { c: 'text-secondary',          m: 'STEAM_API: CONNECTED' },
+  { c: 'text-primary-fixed',      m: 'ALL_SYSTEMS_NOMINAL' },
+  { c: 'text-secondary',          m: 'ACCEPTING_NEW_PROJECTS...' },
+];
+const LIVE_LINES = [
+  'CS2_PRICE_POLL: COMPLETE',
+  'RSI(14)_UPDATE: DONE',
+  'BATTLESTREET_BUILD: STABLE',
+  'STEAM_MARKET_SYNC: OK',
+  'MA(7)_RECALCULATED',
+  'GAINERS_LOSERS_REFRESH: OK',
+  'CLIENT_PIPELINE: OPEN',
+  'PORTFOLIO_UPTIME: 100%',
+];
+let liveIdx = 0;
+ 
+function ts() {
+  const n = new Date();
+  const p = x => String(x).padStart(2, '0');
+  return `[${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}]`;
+}
+ 
+function addFeedLine(feed, cls, msg) {
+  const p = document.createElement('p');
+  p.innerHTML = `<span class="text-secondary">${ts()}</span> <span class="${cls}">${msg}</span>`;
+  feed.appendChild(p);
+  // Keep max 20 lines
+  while (feed.children.length > 20) feed.removeChild(feed.firstChild);
+  feed.scrollTop = feed.scrollHeight;
+}
+ 
+function buildHomeFeed() {
+  const feed = document.getElementById('terminal-feed');
+  if (!feed) return;
+  BOOT_LINES.forEach((l, i) => {
+    setTimeout(() => addFeedLine(feed, l.c, l.m), i * 340);
+  });
+  setTimeout(() => {
+    setInterval(() => {
+      const feed = document.getElementById('terminal-feed');
+      if (feed) addFeedLine(feed, 'text-primary', LIVE_LINES[liveIdx++ % LIVE_LINES.length]);
+    }, 4500);
+  }, BOOT_LINES.length * 340 + 800);
+}
+ 
+// ── Project table row interactions ───────────────────────────────
+document.querySelectorAll('#projects-tbody tr').forEach(row => {
+  const key = row.dataset.project;
+  row.addEventListener('click',       () => openProject(key));
+  row.addEventListener('mouseenter',  () => updatePreview(key));
+  row.addEventListener('keydown', e => { if (e.key === 'Enter') openProject(key); });
+  row.setAttribute('tabindex', '0');
+  row.setAttribute('role', 'button');
+  row.setAttribute('aria-label', `View project: ${key}`);
+});
+ 
+// ── Boot ──────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  buildHomeFeed();
+  animateBars();
+  // Silently populate detail page defaults
+  const p = PROJECTS.cs2;
+  setTxt('detail-uid',    p.uid);
+  setTxt('detail-title',  p.title);
+  setTxt('detail-status', p.status);
+  setTxt('detail-client', p.client);
+  setTxt('detail-role',   p.role);
+  setTxt('detail-desc',   p.desc);
+  setTxt('detail-icon',   p.icon);
+  setTxt('detail-arch-label', `SYSTEM_ARCHITECTURE // ${p.archLabel}`);
+  const tagsEl = document.getElementById('detail-tags');
+  if (tagsEl) tagsEl.innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
+  const metricsEl = document.getElementById('detail-metrics');
+  if (metricsEl) {
+    metricsEl.innerHTML = p.metrics.map(m => `
+      <div>
+        <div class="flex justify-between items-end mb-2">
+          <span class="text-outline-variant text-[10px] uppercase">${m.label}</span>
+          <span class="text-primary-fixed font-bold text-xl tracking-tighter">${m.val}</span>
+        </div>
+        <div class="h-1 bg-surface-container-high w-full">
+          <div class="h-full bg-primary-fixed bar-fill shadow-[0_0_8px_rgba(0,251,251,0.35)]"
+               data-width="${m.w}"></div>
+        </div>
+      </div>`).join('');
+  }
+});
+</script>
+</body>
+</html>
